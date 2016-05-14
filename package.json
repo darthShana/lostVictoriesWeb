@@ -1,0 +1,39 @@
+{
+  "name": "lost_victories_web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server --hot --config webpack.config.js --content-base public/ --devtool eval --port 8070"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darthShana/lostVictoriesWeb.git"
+  },
+  "keywords": [
+    "lost",
+    "victories",
+    "react",
+    "app"
+  ],
+  "author": "Dharshana Ratnayake",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/darthShana/lostVictoriesWeb/issues"
+  },
+  "homepage": "https://github.com/darthShana/lostVictoriesWeb#readme",
+  "devDependencies": {
+    "babel-core": "^6.3.13",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "http-server": "^0.9.0",
+    "webpack": "^1.12.14",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "dependencies": {
+    "react-gcaptcha": "^2.0.0",
+    "react-recaptcha": "^2.0.1"
+  }
+}
