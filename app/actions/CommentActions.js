@@ -17,6 +17,12 @@ var CommentActions = Flux.createActions({
         return{
             actionType: "CLEAR_COMMENTS"
         }
+    },
+    waitingForGame : function(gameName){
+        return {
+          actionType: "WAIT_FOR_GAME",
+          gameName: gameName
+        }
     }
 });
 

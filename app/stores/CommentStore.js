@@ -1,9 +1,15 @@
 var Flux = new McFly();
 
 var _comments = [];
+var _waitingForGame = false;
+var _waitingForGameName = '';
 
 function addComment(message){
   _comments.push(message);
+  if(_waitingForGame && _waitingForGameName === message.name){
+    _waitingForGame = false;
+    _waitingForGameName = '';
+  }
 }
 
 function deleteComment(id){
@@ -33,6 +39,9 @@ var CommentStore = Flux.createStore({
         _ids.push(_comments[i].id);
       }
       return _ids;
+    },
+    waitingForGame: function(){
+      return _waitingForGame;
     }
 }, function(payload){
     if(payload.actionType=== "ADD_COMMENT"){
@@ -46,6 +55,11 @@ var CommentStore = Flux.createStore({
     if(payload.actionType==="CLEAR_COMMENTS"){
         clearComments();
         CommentStore.emitChange();
+    }
+    if(payload.actionType==="WAIT_FOR_GAME"){
+      _waitingForGame = true;
+      _waitingForGameName = payload.gameName;
+      CommentStore.emitChange();
     }
 
 });

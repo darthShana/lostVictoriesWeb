@@ -1,6 +1,9 @@
 var React = require('react');
+var _ = require('underscore');
+
 var UserStore = require('../stores/UserStore');
 var ErrorPanel = require('./ErrorPanel');
+var CommentActions = require('../actions/CommentActions');
 
 var CreateGamePanel = React.createClass({
 
@@ -22,6 +25,7 @@ var CreateGamePanel = React.createClass({
 
         success:function(res){
           console.log("sucess!!", res);
+          CommentActions.waitingForGame(res.name);
           this.setState({
             errorMessages: []
           });
@@ -37,12 +41,19 @@ var CreateGamePanel = React.createClass({
   },
 
   render: function(){
-    return (
-      <div>
-        <ErrorPanel messsages={this.state.errorMessages}/>
-        <button onClick={this.createNewGame}>Create New Game</button>
-      </div>
-    )
+    var available = _.filter(this.props.games, function(game) { return game.gameStatus === 'inProgress' });
+    if(_.isEmpty(available)){
+      return (
+        <div>
+          <ErrorPanel messsages={this.state.errorMessages}/>
+          <button onClick={this.createNewGame}>Create New Game</button>
+        </div>
+      );
+    }else{
+      return (
+        <div></div>
+      );
+    }
   }
 
 });

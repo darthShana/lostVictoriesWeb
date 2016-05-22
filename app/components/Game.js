@@ -1,6 +1,7 @@
 var React = require('react');
 var UserStore = require('../stores/UserStore');
 var CommentStore = require('../stores/CommentStore');
+var CommentActions = require('../actions/CommentActions');
 
 var Game = React.createClass({
     handleJoinGame: function(country, e){
@@ -13,10 +14,10 @@ var Game = React.createClass({
         success: function(data) {
             CommentStore.clearAll();
             syncGamesWithStore(data);
-        },
+        }.bind(this),
         error: function(data) {
             console.log('error');
-        }
+        }.bind(this)
       })
     },
     getJoinGameControles : function(game){
@@ -31,13 +32,10 @@ var Game = React.createClass({
     },
     getContinueGameControles : function(game){
       var g = JSON.stringify(game);
+      var gg = window.btoa(g);
+      console.log('game', gg);
 
-      var result = '';
-      for (var i=0; i<g.length; i++) {
-        result += g.charCodeAt(i).toString(16);
-      }
-
-      g = "lostvic://lostVictoriesLauncher/game="+result;
+      g = "lostvic://lostVictoriesLauncher/game="+gg;
       return (
         <div>
           <a href={g}>Start Game</a>

@@ -1,8 +1,9 @@
 var Flux = new McFly();
 var React = require('react');
+var Loader = require('react-loader');
+
 var CommentStore = require('../stores/CommentStore');
 var UserStore = require('../stores/UserStore');
-var CommentActions = require('../actions/CommentActions');
 var CommentsBox = require('./CommentsBox');
 
 
@@ -42,6 +43,7 @@ var GamesPanel = React.createClass({
         var panel = UserStore.userSelected() ? this.renderPanel() : this.renderBlank();
         return (
             <div>
+                <Loader loaded={!CommentStore.waitingForGame()}/>
                 {panel}
             </div>
         );
