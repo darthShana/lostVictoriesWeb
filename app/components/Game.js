@@ -6,10 +6,17 @@ var CommentActions = require('../actions/CommentActions');
 var Game = React.createClass({
     handleJoinGame: function(country, e){
       var game = this.refs.gameObject.value;
+      var data = {
+        game: game,
+        userID: UserStore.getUser().id,
+        country: country
+      }
       $.ajax({
-        url: domain+"/joinGame?game="+game+"&userID="+UserStore.getUser().id+"&country="+country,
-        type: "GET",
-        dataType: "json",
+        url: domain+"/authenticated/joinGame",
+        type: "POST",
+        data: data,
+        contentType:"application/json; charset=utf-8",
+        xhrFields: { withCredentials:true },
         timeout: 2000,
         success: function(data) {
             CommentStore.clearAll();

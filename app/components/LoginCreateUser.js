@@ -5,7 +5,6 @@ var UserActions = require('../actions/UserActions');
 var recaptchaResponse = '';
 
 var callback = function (key) {
-  console.log(key);
   recaptchaResponse = key;
 };
 var loaded = function () {
@@ -32,17 +31,20 @@ var LoginCreateUser = React.createClass({
     },
 
     handleAddUser : function() {
-      var data = {};
-      data['username'] = this.refs.username.value;
-      data['email'] = this.refs.email.value;
-      data['password1'] = this.refs.password1.value;
-      data['password2'] = this.refs.password2.value;
-      data['recaptchaResponse'] = recaptchaResponse;
+      var data = {
+        username: this.refs.username.value,
+        email: this.refs.email.value,
+        password1: this.refs.password1.value,
+        password2: this.refs.password2.value,
+        recaptchaResponse: recaptchaResponse
+      };
 
       $.ajax({
-        url: domain+"/createUser?user="+JSON.stringify(data),
-        type: "GET",
-        dataType: "json",
+        url: domain+"/createUser",
+        type: "POST",
+        data: JSON.stringify(data),
+        contentType:"application/json; charset=utf-8",
+        xhrFields: { withCredentials:true },
         success: function(data) {
             console.log('success');
             this.setState({
@@ -53,21 +55,24 @@ var LoginCreateUser = React.createClass({
         error: function(data) {
             console.log('error', data);
             this.setState({
-              errorMessages: [data.responseText]
+              errorMessages: [data.responseJSON.message]
             });
         }.bind(this)
       })
 
     },
     handleLogin : function() {
-      var data = {};
-      data['username'] = this.refs.username.value;
-      data['password1'] = this.refs.password.value;
+      var data = {
+        username: this.refs.username.value,
+        password1: this.refs.password.value
+      };
 
       $.ajax({
-        url: domain+"/userLogin?user="+JSON.stringify(data),
-        type: "GET",
-        dataType: "json",
+        url: domain+"/userLogin",
+        type: "POST",
+        data: JSON.stringify(data),
+        contentType:"application/json; charset=utf-8",
+        xhrFields: { withCredentials:true },
         success: function(data) {
             console.log('success');
             this.setState({
@@ -78,7 +83,7 @@ var LoginCreateUser = React.createClass({
         error: function(data) {
             console.log('error', data);
             this.setState({
-              errorMessages: [data.responseText]
+              errorMessages: [data.responseJSON.message]
             });
         }.bind(this)
       })

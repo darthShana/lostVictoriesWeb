@@ -13,9 +13,10 @@ var CommentsBox = React.createClass({
     },
     pollForGames: function() {
       $.ajax({
-        url: domain+"/games?userID="+UserStore.getUser().id,
+        url: domain+"/authenticated/games?userID="+UserStore.getUser().id,
         type: "GET",
         dataType: "json",
+        xhrFields: { withCredentials:true },
         success: function(data) {
             syncGamesWithStore(data);
         },
