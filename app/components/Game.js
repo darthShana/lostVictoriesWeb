@@ -14,7 +14,7 @@ var Game = React.createClass({
       $.ajax({
         url: domain+"/authenticated/joinGame",
         type: "POST",
-        data: data,
+        data: JSON.stringify(data),
         contentType:"application/json; charset=utf-8",
         xhrFields: { withCredentials:true },
         timeout: 2000,

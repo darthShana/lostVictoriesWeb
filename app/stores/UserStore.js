@@ -4,6 +4,10 @@ function setUser(user){
   sessionStorage.setItem('_user', JSON.stringify(user))
 }
 
+function clearUser(){
+  sessionStorage.setItem('_user', null)
+}
+
 function user(){
     var _u = sessionStorage.getItem('_user');
     if(_u!=null){
@@ -25,7 +29,10 @@ var UserStore = Flux.createStore({
       setUser(payload.user);
       UserStore.emitChange();
     }
-
+    if(payload.actionType=== "CLEAR_USER"){
+      clearUser();
+      UserStore.emitChange();
+    }
 
 });
 

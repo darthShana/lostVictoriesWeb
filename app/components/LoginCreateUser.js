@@ -89,6 +89,31 @@ var LoginCreateUser = React.createClass({
       })
 
     },
+
+    handleLogout : function() {
+      $.ajax({
+        url: domain+"/authenticated/userLogout",
+        type: "POST",
+        data: JSON.stringify({stuff:'tests'}),
+        contentType:"application/json; charset=utf-8",
+        xhrFields: { withCredentials:true },
+        success: function(data) {
+            console.log('success');
+            this.setState({
+              errorMessages: []
+            });
+            UserActions.clearUser();
+        }.bind(this),
+        error: function(data) {
+            console.log('error', data);
+            this.setState({
+              errorMessages: [data.responseJSON.message]
+            });
+        }.bind(this)
+      })
+
+    },
+
     renderCreateUser: function() {
       return (
         <div>
@@ -120,6 +145,7 @@ var LoginCreateUser = React.createClass({
         <div>
           <ErrorPanel messsages={this.state.errorMessages}/>
           {panel}
+          <button onClick={this.handleLogout}>Logout</button>
         </div>
       )
     }

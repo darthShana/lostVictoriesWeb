@@ -5,7 +5,8 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --hot --config webpack.config.js --content-base public/ --devtool eval --port 8070"
+    "dev": "webpack-dev-server --hot --config webpack.config.js --content-base public/ --devtool eval --port 8070",
+    "build" : "webpack -p --config ./webpack.production.config.js"
   },
   "repository": {
     "type": "git",

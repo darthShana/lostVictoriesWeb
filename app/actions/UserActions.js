@@ -6,8 +6,13 @@ var UserActions = Flux.createActions({
         actionType: "SET_USER",
         user: user
       }
-    }
+    },
 
+    clearUser : function(){
+      return{
+        actionType: "CLEAR_USER"
+      }
+    }
 });
 
 module.exports = UserActions;
