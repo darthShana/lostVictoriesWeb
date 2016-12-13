@@ -1,7 +1,7 @@
 var Flux = new McFly();
 var React = require('react');
 var Loader = require('react-loader');
-
+var UserActions = require('../actions/UserActions');
 var CommentStore = require('../stores/CommentStore');
 var UserStore = require('../stores/UserStore');
 var CommentsBox = require('./CommentsBox');
@@ -23,6 +23,25 @@ var GamesPanel = React.createClass({
     storeDidChange: function(){
         this.setState(getComments());
     },
+    componentDidMount: function(){
+      if(!UserStore.userSelected()){
+        this.handleGetUser();
+      }
+    },
+
+    handleGetUser: function(){
+      $.ajax({
+        url: domain+"/authenticated/user",
+        type: "GET",
+        dataType: "json",
+        xhrFields: { withCredentials:true },
+        success: function(data) {
+            console.log('already logged in', data);
+            UserActions.setUser(data);
+        },
+      })
+    },
+
     renderPanel: function(){
       return (
         <div>
@@ -40,6 +59,7 @@ var GamesPanel = React.createClass({
       );
     },
     render : function(){
+        console.log('UserStore.userSelected()', UserStore.userSelected());
         var panel = UserStore.userSelected() ? this.renderPanel() : this.renderBlank();
         return (
             <div>

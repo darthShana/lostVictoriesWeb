@@ -1,19 +1,17 @@
 var Flux = new McFly();
 
+var _user;
+
 function setUser(user){
-  sessionStorage.setItem('_user', JSON.stringify(user))
+  _user = user;
 }
 
 function clearUser(){
-  sessionStorage.setItem('_user', null)
+  _user = null;
 }
 
 function user(){
-    var _u = sessionStorage.getItem('_user');
-    if(_u!=null){
-      return JSON.parse(_u);
-    }
-    return null;
+    return _user;
 }
 
 var UserStore = Flux.createStore({
