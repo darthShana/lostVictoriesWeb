@@ -15,6 +15,10 @@ function user(){
 }
 
 var UserStore = Flux.createStore({
+    setUser: function (user) {
+      _user = user;
+    },
+
     getUser: function(){
         return user();
     },

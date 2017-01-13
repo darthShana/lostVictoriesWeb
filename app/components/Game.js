@@ -50,32 +50,40 @@ var Game = React.createClass({
       )
     },
 
+    renderOngoingGames: function () {
+
+    },
+
     render : function(){
       var button;
+      var isGameActive = false;
       if(this.props.game.gameStatus === 'inProgress'){
+          isGameActive = true;
         if (this.props.game.joined) {
-            button = this.getContinueGameControles(this.props.game);
+            button = (<div className="start-game-button">{this.getContinueGameControles(this.props.game)}</div>);
         } else {
-            button = this.getJoinGameControles(this.props.game);
+            button = (<div className="start-game-button">{this.getJoinGameControles(this.props.game)}</div>);
         }
       }else{
-        var vic = (this.props.game.victor==='AMERICAN')?(<span>alies</span>):(<span>axis</span>);
-        if(this.props.game.country === this.props.game.victor){
-          button = (
-            <div>Congratulations!! Your war has been won by the {vic}</div>
-          );
-        }else{
-          button = (
-            <div>This war has been won by the {vic} </div>
-          );
-        }
+          isGameActive = false;
+        var vic = (this.props.game.victor==='AMERICAN')?(<td>alies</td>):(<td>axis</td>);
+        // if(this.props.game.country === this.props.game.victor){
+        //   button = (
+        //     <div>Congratulations!! Your war has been won by the {vic}</div>
+        //   );
+        // }else{
+        //   button = (
+        //     <div>This war has been won by the {vic} </div>
+        //   );
+        // }
       }
 
       return (
-        <li key={this.props.index}>
-          {this.props.game.name}: Started on {new Date(this.props.game.startDate).toUTCString()}
-          {button}
-        </li>
+        <tr key={this.props.index}>
+            <td className="game-name">{this.props.game.name}</td>
+            <td>{new Date(this.props.game.startDate).toUTCString()}</td>
+            <td className="game-name">{ isGameActive ? button : vic }</td>
+        </tr>
         );
     }
 });

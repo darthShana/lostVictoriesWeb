@@ -26,11 +26,23 @@ var CommentsBox = React.createClass({
     render : function(){
         return (
             <div>
-                <ul>
-                    {this.props.comments.map(function(game, index){
-                        return <Game index={index} game={game}/>
-                    })}
-                </ul>
+                <div className="table-responsive ongoing">
+                    <table className="table games-table" id="ongoing-table">
+                        <thead>
+                        <tr>
+                            <th>Games</th>
+                            <th>Started on</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {this.props.comments.map(function(game, index){
+                                return <Game index={index} game={game} table="ongoing" />
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+
                 <CreateGamePanel games={this.props.comments}/>
             </div>
         );

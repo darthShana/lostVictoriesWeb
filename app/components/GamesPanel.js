@@ -1,12 +1,13 @@
 var Flux = new McFly();
 var React = require('react');
+var ReactDOM = require('react-dom');
 var Loader = require('react-loader');
 var UserActions = require('../actions/UserActions');
 var CommentStore = require('../stores/CommentStore');
 var UserStore = require('../stores/UserStore');
 var CommentsBox = require('./CommentsBox');
-
-
+var LoginCreateUser = require('./LoginCreateUser');
+var Logout = require('./Logout');
 
 function getComments(){
     return {
@@ -45,8 +46,12 @@ var GamesPanel = React.createClass({
     renderPanel: function(){
       return (
         <div>
-          Welcome {UserStore.getUser().username}
-          <h3>Games</h3>
+            <div className="section_under_header col-sm-12">
+                <div className="col-xs-12 col-sm-12 left_section">
+                    <p id="welcome-user">Welcome, {UserStore.getUser().username}</p>
+                </div>
+            </div>
+          {/*<h3>Games</h3>*/}
           <CommentsBox comments={this.state.comments}/>
         </div>
       );
@@ -60,13 +65,17 @@ var GamesPanel = React.createClass({
     },
     render : function(){
         console.log('UserStore.userSelected()', UserStore.userSelected());
-        var panel = UserStore.userSelected() ? this.renderPanel() : this.renderBlank();
-        return (
-            <div>
-                <Loader loaded={!CommentStore.waitingForGame()}/>
-                {panel}
-            </div>
-        );
+        // var panel = UserStore.userSelected() ? this.renderPanel() : LoginCreateUser.render();
+        if(UserStore.userSelected()) {
+            ReactDOM.render(<Logout />, document.getElementById('login-logout-section'));
+            return (
+                <div>
+                    <Loader loaded={!CommentStore.waitingForGame()}/>
+                    { this.renderPanel() }
+                </div>
+            );
+        }
+        return ( <LoginCreateUser /> )
     }
 });
 

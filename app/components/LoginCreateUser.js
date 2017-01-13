@@ -3,6 +3,8 @@ var Recaptcha = require('react-gcaptcha');
 var ErrorPanel = require('./ErrorPanel');
 var UserActions = require('../actions/UserActions');
 var recaptchaResponse = '';
+var UserStore = require('../stores/UserStore');
+var ReactDOM  = require('react-dom');
 
 var callback = function (key) {
   recaptchaResponse = key;
@@ -78,7 +80,11 @@ var LoginCreateUser = React.createClass({
             this.setState({
               errorMessages: []
             });
-            UserActions.setUser(data);
+            UserActions.setUser(data)
+            UserStore.setUser(data);
+            // console.log(data);
+            // console.log(UserStore.userSelected());
+            // window.location.reload(true);
         }.bind(this),
         error: function(data) {
             console.log('error', data);
@@ -103,6 +109,7 @@ var LoginCreateUser = React.createClass({
               errorMessages: []
             });
             UserActions.clearUser();
+            $('#login-logout-section').html('<a href="#">Login</a>');
         }.bind(this),
         error: function(data) {
             console.log('error', data);
@@ -116,39 +123,52 @@ var LoginCreateUser = React.createClass({
 
     renderCreateUser: function() {
       return (
-        <div>
-          username: <input type="text" ref="username"/>
-          email: <input type="text" ref="email"/>
-          password: <input type="password" ref="password1"/>
-          repeat password: <input type="password" ref="password2"/>
-          <Recaptcha sitekey='6LeQ0xUTAAAAAE09a_8Aoqvmnn2_r3tmtRAxd6vL' onloadCallback={loaded} verifyCallback={callback} />
-          <div ref="recaptchaTarget"></div>
-          <button onClick={this.handleAddUser}>Register</button>
-          <button onClick={this.handleToggle}>Continue as existing User</button>
+        <div className="auth-container">
+            <div>
+                <h3>REGISTER</h3>
+                <label>Username</label><input type="text" ref="username"/><br/>
+                <label>Email</label><input type="text" ref="email"/><br/>
+                <label>Password</label><input type="password" ref="password1"/><br/>
+                <label>Repeat Password</label><input type="password" ref="password2"/><br/>
+                <Recaptcha sitekey='6LeQ0xUTAAAAAE09a_8Aoqvmnn2_r3tmtRAxd6vL' onloadCallback={loaded} verifyCallback={callback} />
+                <div ref="recaptchaTarget"></div>
+                <br/><br/>
+                <button onClick={this.handleAddUser} className="submit-button">Register</button>
+                <br/><br/>
+                <button onClick={this.handleToggle} className="join-us">Continue as existing User</button>
+            </div>
         </div>
       )
     },
     renderLogin: function() {
       return (
-        <div>
-          username: <input type="text" ref="username"/>
-          password: <input type="password" ref="password"/>
-          <button onClick={this.handleLogin}>Login</button>
-          <button onClick={this.handleToggle}>Create new user</button>
+          <div className="auth-container">
+              <div>
+                  <h3>LOGIN</h3>
+                  <label>Username</label><input type="text" ref="username"/><br/>
+                  <label>Password</label><input type="password" ref="password"/><br/>
+                  <a href="#">Recover password</a>
+                  <br/><br/>
+                  <button onClick={this.handleLogin} className="submit-button">Sign In</button><br/><br/><br/>
+                  <span>New on Lost Victories?</span><button onClick={this.handleToggle} className="join-us">Join Us Now</button>
+              </div>
         </div>
       )
     },
     render: function() {
       var panel = this.state.createUserIsOpen ? this.renderCreateUser() : this.renderLogin();
-
       return (
-        <div>
-          <ErrorPanel messsages={this.state.errorMessages}/>
-          {panel}
-          <button onClick={this.handleLogout}>Logout</button>
-        </div>
+          <div>{panel}</div>
       )
-    }
+      // return (
+      //   <div>
+      //     <ErrorPanel messsages={this.state.errorMessages}/>
+      //     {panel}
+      //     <button onClick={this.handleLogout}>Logout</button>
+      //   </div>
+      // )
+    },
+
 });
 
 module.exports = LoginCreateUser;
