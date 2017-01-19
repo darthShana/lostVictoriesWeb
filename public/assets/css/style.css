@@ -179,3 +179,22 @@ header {
 #login-logout-section a {
     cursor: pointer;
 }
+
+.join-game-button-div {
+    background: transparent;
+}
+
+.join-game-as-button, .create-game-button {
+    background: #2d2d2d;
+    font-family: 'OldNewspaperTypes';
+    text-decoration: none;
+    border: none;
+    color: #ffffff;
+    padding: 7px 30px 7px 30px;
+    font-size: 12px !important;
+    display: inline-block;
+    margin-bottom: 5px;
+    min-width: 180px;
+}
+
+

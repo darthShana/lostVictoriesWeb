@@ -32,8 +32,9 @@ var Game = React.createClass({
       return (
         <div>
           <input type="hidden" value={g} ref="gameObject"/>
-          <button onClick={this.handleJoinGame.bind(g, 'AMERICAN')}>Join Game as Allied</button>
-          <button onClick={this.handleJoinGame.bind(g, 'GERMAN')}>Join Game as Axis</button>
+          <button onClick={this.handleJoinGame.bind(g, 'AMERICAN')} className="join-game-as-button">Join Game as Allied</button>
+            <br/>
+          <button onClick={this.handleJoinGame.bind(g, 'GERMAN')} className="join-game-as-button">Join Game as Axis</button>
         </div>
       )
     },
@@ -62,11 +63,11 @@ var Game = React.createClass({
         if (this.props.game.joined) {
             button = (<div className="start-game-button">{this.getContinueGameControles(this.props.game)}</div>);
         } else {
-            button = (<div className="start-game-button">{this.getJoinGameControles(this.props.game)}</div>);
+            button = (<div className="join-game-button-div">{this.getJoinGameControles(this.props.game)}</div>);
         }
       }else{
           isGameActive = false;
-        var vic = (this.props.game.victor==='AMERICAN')?(<td>alies</td>):(<td>axis</td>);
+          var vic = (this.props.game.victor==='AMERICAN')?(<span>alies</span>):(<span>axis</span>);
         // if(this.props.game.country === this.props.game.victor){
         //   button = (
         //     <div>Congratulations!! Your war has been won by the {vic}</div>

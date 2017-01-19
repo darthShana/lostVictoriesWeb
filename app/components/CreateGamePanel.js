@@ -45,7 +45,7 @@ var CreateGamePanel = React.createClass({
       return (
         <div>
           <ErrorPanel messsages={this.state.errorMessages}/>
-          <button onClick={this.createNewGame}>Create New Game</button>
+          <button onClick={this.createNewGame} className="create-game-button">Create New Game</button>
         </div>
       );
     }else{
