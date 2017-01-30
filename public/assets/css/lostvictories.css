@@ -95,7 +95,7 @@ header .login_join_section {
     float: left;
 }
 .width-74 {
-    width: 74%;
+    width: 68%;
     float: left;
 }
 .login_join_section .login_section a, .login_join_section .join_now_section a {
@@ -259,6 +259,18 @@ footer .copyright {
  * Media Query
 **/
 
+@media only screen and (max-width: 1199px) and (min-width: 992px) {
+    header .logo a {
+        font-size: 60px;
+        display: block;
+        margin-top: 5px;
+    }
+
+    .width-74 {
+        width: 60%;
+    }
+}
+
 @media only screen and (min-width: 1200px) and (max-width: 1315px) {
     header {
         width: 1170px;
@@ -276,6 +288,7 @@ footer .copyright {
         font-size: 35px;
     }
 }
+
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
     header, footer {
         overflow: hidden;
@@ -308,6 +321,11 @@ footer .copyright {
         font-size: 52px;
         margin-top: 15px;
     }
+
+    header .logo a {
+        font-size: 40px;
+    }
+
     header .logo img {
         vertical-align: middle;
         width: 16%;
@@ -316,7 +334,7 @@ footer .copyright {
         width: 16%;
     }
     .width-74 {
-        width: 68%;
+        width: 54%;
     }
     .container h1 {
         font-size: 56px;
@@ -426,6 +444,7 @@ footer .copyright {
     .container .left_section .text_with_border {
         padding: 0;
     }
+
 }
 
 @media only screen and (max-width: 650px) {

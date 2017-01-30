@@ -197,4 +197,11 @@ header {
     min-width: 180px;
 }
 
+.width-13 .download {
+    padding: 15px 0px 15px 15px;
+    display: block;
+    text-align: right;
+    width: 100%;
+}
+
 
